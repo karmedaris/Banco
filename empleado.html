@@ -55,42 +55,43 @@
     </form>
 
     <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyAR_mOJzFv5HQ-iIiOsCoq24rhsU8n9nak",
-            authDomain: "banco-46f76.firebaseapp.com",
-            projectId: "banco-46f76",
-            storageBucket: "banco-46f76.appspot.com",
-            messagingSenderId: "1080613323452",
-            appId: "1:1080613323452:web:3fd3aef84af74fd73686b9"
-        };
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+      import {getFirestore,collection,addDoc,onSnapshot,deleteDoc,doc} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+      apiKey: "AIzaSyAR_mOJzFv5HQ-iIiOsCoq24rhsU8n9nak",
+      authDomain: "banco-46f76.firebaseapp.com",
+      projectId: "banco-46f76",
+      storageBucket: "banco-46f76.appspot.com",
+      messagingSenderId: "1080613323452",
+      appId: "1:1080613323452:web:3fd3aef84af74fd73686b9"    
+      };
 
         // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
 
-        const empleadform = document.getElementById("form-emplead");
-        empleadform.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            await addDoc(collection(db, "empleado"), {
-                nombre: empleadform.nombre.value,
-                apellido: empleadform.apellido.value,
-                cargo: empleadform.cargo.value,
-                departamento: empleadform.departamento.value,
-                contrato: empleadform.contrato.value,
-                salario: empleadform.salario.value,
-                email: empleadform.email.value,
-                telefono: empleadform.telefono.value,
-                direccion: empleadform.direccion.value,
-                estado_civil: empleadform.estado_civil.value,
-                nivel_educativo: empleadform.nivel_educativo.value
-            });
-            empleadform.reset();
+      const empleadform = document.getElementById("form-emplead");
+      empleadform.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        await addDoc(collection(db, "empleado"), {
+         nombre: empleadform.nombre.value,
+          apellido: empleadform.apellido.value,
+          cargo: empleadform.cargo.value,
+          departamento: empleadform.departamento.value,
+          contrato: empleadform.contrato.value,
+          salario: empleadform.salario.value,
+          email: empleadform.email.value,
+          telefono: empleadform.telefono.value,
+          direccion: empleadform.direccion.value,
+          estado_civil: empleadform.estado_civil.value,
+          nivel_educativo: empleadform.nivel_educativo.value
         });
+        empleadform.reset();
+      });
     </script>
 </body>
 </html>
