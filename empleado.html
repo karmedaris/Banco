@@ -74,7 +74,7 @@
         await addDoc(collection(db, "empleado"), {
           nombre: empleadform.nombre.value,
           apellido: empleadform.apellido.value,
-          cargo: empleadform.cargo.value,
+          cargo: empleadform.cargo.value
         });
         empleadform.reset();
       });
