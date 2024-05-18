@@ -43,6 +43,13 @@
         <input type="text" name="nombre" placeholder="Ingrese el nombre del empleado">
         <input type="text" name="apellido" placeholder="Ingrese el apellido del empleado">
         <input type="text" name="cargo" placeholder="Ingrese el cargo">
+        <input type="text" name="departamento" placeholder="Ingrese el departamento">
+        <input type="text" name="contrato" placeholder="Ingrese la fecha de contrato">
+        <input type="text" name="salario" placeholder="Ingrese el salario">
+        <input type="text" name="correo" placeholder="Ingrese el correo">
+        <input type="text" name="telefono" placeholder="Ingrese el teléfono">
+        <input type="text" name="direccion" placeholder="Ingrese la dirección">
+        <input type="text" name="edad" placeholder="Ingrese el estado civil">
         <button type="submit">Agregar empleado</button>
     </form>
 
@@ -53,30 +60,36 @@
 
       // TODO: Add SDKs for Firebase products that you want to use
       // https://firebase.google.com/docs/web/setup#available-libraries
-
+    
       // Your web app's Firebase configuration
       const firebaseConfig = {
-        apiKey: "AIzaSyAR_mOJzFv5HQ-iIiOsCoq24rhsU8n9nak",
-        authDomain: "banco-46f76.firebaseapp.com",
-        projectId: "banco-46f76",
-        storageBucket: "banco-46f76.appspot.com",
-        messagingSenderId: "1080613323452",
-        appId: "1:1080613323452:web:3fd3aef84af74fd73686b9"
+        apiKey: "AIzaSyDrAFNARDWnrUVGAUoUgYFqKUc0RtVyF7Q",
+        authDomain: "banco-f282f.firebaseapp.com",
+        projectId: "banco-f282f",
+        storageBucket: "banco-f282f.appspot.com",
+        messagingSenderId: "836425015918",
+        appId: "1:836425015918:web:0bc5e4dd186e09b768fc7f"
       };
-
+    
       // Initialize Firebase
       const app = initializeApp(firebaseConfig);
       const db = getFirestore(app);
 
       const empleadform = document.getElementById("form-emplead");
-      empleadform.addEventListener("submit", async (e) => {
+      empleadform.addEventListener("submit",async(e)=>{
         e.preventDefault();
-        await addDoc(collection(db, "empleado"), {
+        await addDoc(collection(db, "empleados"), {
           nombre: empleadform.nombre.value,
           apellido: empleadform.apellido.value,
-          cargo: empleadform.cargo.value
+          departamento: empleadform.departamento.value,
+          contrato: empleadform.contrato.value,
+          salario: empleadform.salario.value,
+          email: empleadform.email.value,
+          telefono: empleadform.telefono.value,
+          direccion: empleadform.direccion.value,
+          edad: empleadform.edad.value
         });
-        empleadform.reset();
+        empleadform,reset();
       });
     </script>
 </body>
