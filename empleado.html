@@ -76,8 +76,8 @@
       const app = initializeApp(firebaseConfig);
       const db = getFirestore(app);
 
-      const productform = document.getElementById("form-emplead");
-      productform.addEventListener("submit",async(e)=>{
+      const empleadform = document.getElementById("form-emplead");
+      empleadform.addEventListener("submit",async(e)=>{
         e.preventDefault();
         await addDoc(collection(db, "empleado"), {
             nombre: empleadform.nombre.value,
