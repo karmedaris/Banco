@@ -80,20 +80,19 @@
       empleadform.addEventListener("submit",async(e)=>{
         e.preventDefault();
         await addDoc(collection(db, "empleado"), {
-            nombre: empleadform.nombre.value,
-            apellido: empleadform.apellido.value,
-            cargo: empleadform.cargo.value,
-            departamento: empleadform.departamento.value,
-            contrato: empleadform.contrato.value,
-            salario: empleadform.salario.value,
-            email: empleadform.email.value,
-            telefono: empleadform.telefono.value,
-            direccion: empleadform.direccion.value,
-            estado_civil: empleadform.estado_civil.value,
-            nivel_educativo: empleadform.nivel_educativo.value
-
+          nombre: empleadform.nombre.value,
+          apellido: empleadform.apellido.value,
+          cargo: empleadform.cargo.value,
+          departamento: empleadform.departamento.value,
+          contrato: empleadform.contrato.value,
+          salario: empleadform.salario.value,
+          email: empleadform.email.value,
+          telefono: empleadform.telefono.value,
+          direccion: empleadform.direccion.value,
+          estado_civil: empleadform.estado_civil.value,
+          nivel_educativo: empleadform.nivel_educativo.value
         });
-        productform,reset();
+        empleadform,reset();
       });
 
     </script>
