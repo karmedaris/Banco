@@ -260,7 +260,7 @@
 
         empleadform.addEventListener("submit", async (e) => {
             e.preventDefault();
-            const id = empleadform.dataset.id;
+            const id = empleadform.dataset.id; // Obtiene el ID del empleado si existe
             if (id) {
                 await updateDoc(doc(db, "empleados", id), {
                     nombre: empleadform.nombre.value,
@@ -275,8 +275,9 @@
                     edad: empleadform.edad.value
                 });
                 alert("Empleado actualizado");
-                empleadform.removeAttribute("data-id");
+                empleadform.removeAttribute("data-id"); // Limpia el atributo data-id después de actualizar
             } else {
+                // Si no hay un ID, significa que estamos agregando un nuevo empleado
                 await addDoc(collection(db, "empleados"), {
                     nombre: empleadform.nombre.value,
                     apellido: empleadform.apellido.value,
@@ -294,6 +295,7 @@
             empleadform.reset();
             fetchEmpleados();
         });
+
 
         // Listen for real-time updates
         onSnapshot(collection(db, "empleados"), (snapshot) => {
