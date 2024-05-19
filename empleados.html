@@ -101,9 +101,18 @@
             <input type="text" name="edad" placeholder="Ingrese la edad">
             
             <button type="submit">Agregar empleado</button>
+            <button type="button" id="guardarCambiosBtn" style="display: none;">Guardar cambios</button>
         </form>
         
         <hr>
+        
+        <form id="form-buscar">
+            <label for="">Buscar empleado por nombre:</label>
+            <input type="text" name="buscarNombre" placeholder="Ingrese el nombre del empleado">
+            <button type="submit">Buscar empleado</button>
+        </form>
+        
+        <div id="resultados"></div>
         
         <table id="empleados-table">
             <thead>
@@ -124,13 +133,6 @@
             </thead>
             <tbody></tbody>
         </table>
-        
-        <div id="actions">
-            <button id="guardarBtn">Guardar</button>
-            <button id="actualizarBtn" style="display: none;">Actualizar</button>
-            <button id="verBtn" style="display: none;">Ver</button>
-            <button id="eliminarBtn" style="display: none;">Eliminar</button>
-        </div>
     </div>
 
     <script type="module">
@@ -153,11 +155,10 @@
         const db = getFirestore(app);
 
         const empleadform = document.getElementById("form-emplead");
-        const guardarBtn = document.getElementById("guardarBtn");
-        const actualizarBtn = document.getElementById("actualizarBtn");
-        const verBtn = document.getElementById("verBtn");
-        const eliminarBtn = document.getElementById("eliminarBtn");
+        const buscarform = document.getElementById("form-buscar");
+        const resultados = document.getElementById("resultados");
         const empleadosTableBody = document.querySelector("#empleados-table tbody");
+        const guardarCambiosBtn = document.getElementById("guardarCambiosBtn");
 
         // Function to render employees in the table
         const renderEmpleados = (querySnapshot) => {
@@ -186,5 +187,4 @@
             });
         };
 
-        // Fetch all employees and render them in the table
-        const fetchEmpleados
+        // Fetch all employees and render them in
