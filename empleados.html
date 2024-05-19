@@ -44,7 +44,6 @@
         }
         form button {
             padding: 10px 20px;
-            margin-top: 10px;
         }
         table {
             margin-top: 20px;
@@ -105,16 +104,6 @@
             <button type="button" id="actualizarBtn" style="display: none;">Actualizar</button>
         </form>
         
-        <hr>
-        
-        <form id="form-buscar">
-            <label for="">Buscar empleado por nombre:</label>
-            <input type="text" name="buscarNombre" placeholder="Ingrese el nombre del empleado">
-            <button type="submit">Buscar empleado</button>
-        </form>
-        
-        <div id="resultados"></div>
-        
         <table id="empleados-table">
             <thead>
                 <tr>
@@ -156,8 +145,7 @@
         const db = getFirestore(app);
 
         const empleadform = document.getElementById("form-emplead");
-        const buscarform = document.getElementById("form-buscar");
-        const resultados = document.getElementById("resultados");
+        const actualizarBtn = document.getElementById("actualizarBtn");
         const empleadosTableBody = document.querySelector("#empleados-table tbody");
 
         // Function to render employees in the table
@@ -188,4 +176,14 @@
         };
 
         // Fetch all employees and render them in the table
-       
+        const fetchEmpleados = async () => {
+            const querySnapshot = await getDocs(collection(db, "empleados"));
+            renderEmpleados(querySnapshot);
+        };
+
+        fetchEmpleados();
+
+        empleadform.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            if (!empleadform.dataset.id) {
+                await addDoc(collection
