@@ -1,61 +1,123 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Empleados</title>
     <style>
-        /* Centrar contenido */
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Estilos del contenedor */
         .container {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            text-align: center;
             min-height: 100vh;
             margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
         }
+
+        /* Estilos del encabezado */
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Estilos del menú */
         nav {
             margin-bottom: 20px;
         }
+
         .main-menu {
             list-style-type: none;
             padding: 0;
             margin: 0;
         }
+
         .main-menu li {
             display: inline;
             margin-right: 20px;
         }
-        /* Menú */
+
         .main-menu li a {
             text-decoration: none; 
             color: black; 
+            padding: 8px 12px;
+            border-radius: 5px;
+            background-color: #ddd;
+            transition: background-color 0.3s ease;
         }
+
+        .main-menu li a:hover {
+            background-color: #bbb;
+        }
+
+        /* Estilos del formulario */
         form {
             display: flex;
             flex-direction: column;
             align-items: center;
+            margin-bottom: 20px;
         }
+
+        form label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
         form input {
             margin-bottom: 10px;
             padding: 8px;
             width: 250px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
         }
+
         form button {
             padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4caf50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
+
+        form button:hover {
+            background-color: #45a049;
+        }
+
+        /* Estilos de la tabla */
         table {
-            margin-top: 20px;
             border-collapse: collapse;
-            width: 80%;
+            width: 100%;
         }
-        table, th, td {
-            border: 1px solid black;
-        }
-        th, td {
-            padding: 10px;
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 8px;
             text-align: left;
+        }
+
+        table th {
+            background-color: #f2f2f2;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        table tr:hover {
+            background-color: #ddd;
         }
     </style>
 </head>
@@ -64,60 +126,52 @@
         <h1>Gestión de Empleados</h1>
         <nav>
             <ul class="main-menu">
-                <li id="home"><a href="index.html">Inicio</a></li>
+                <li id="home"><a href="index.html">Home</a></li>
                 <li id="empleados"><a href="empleados.html">Empleado</a></li>
             </ul>
         </nav>
-        <hr>
-        <!-- Formulario para agregar empleados -->
         <form id="form-emplead">
-            <label for="">Nombre:</label>
-            <input type="text" name="nombre" placeholder="Ingrese el nombre del empleado">
+            <label for="nombre">Nombre:</label>
+            <input type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre del empleado">
             
-            <label for="">Apellido:</label>
-            <input type="text" name="apellido" placeholder="Ingrese el apellido del empleado">
+            <label for="apellido">Apellido:</label>
+            <input type="text" name="apellido" id="apellido" placeholder="Ingrese el apellido del empleado">
             
-            <label for="">Cargo:</label>
-            <input type="text" name="cargo" placeholder="Ingrese el cargo">
+            <label for="cargo">Cargo:</label>
+            <input type="text" name="cargo" id="cargo" placeholder="Ingrese el cargo">
             
-            <label for="">Departamento:</label>
-            <input type="text" name="departamento" placeholder="Ingrese el departamento">
+            <label for="departamento">Departamento:</label>
+            <input type="text" name="departamento" id="departamento" placeholder="Ingrese el departamento">
             
-            <label for="">Contrato:</label>
-            <input type="text" name="contrato" placeholder="Ingrese la fecha de contrato">
+            <label for="contrato">Contrato:</label>
+            <input type="text" name="contrato" id="contrato" placeholder="Ingrese la fecha de contrato">
             
-            <label for="">Salario:</label>
-            <input type="text" name="salario" placeholder="Ingrese el salario">
+            <label for="salario">Salario:</label>
+            <input type="text" name="salario" id="salario" placeholder="Ingrese el salario">
             
-            <label for="">Correo:</label>
-            <input type="text" name="correo" placeholder="Ingrese el correo">
+            <label for="correo">Correo:</label>
+            <input type="text" name="correo" id="correo" placeholder="Ingrese el correo">
             
-            <label for="">Teléfono:</label>
-            <input type="text" name="telefono" placeholder="Ingrese el teléfono">
+            <label for="telefono">Telefono:</label>
+            <input type="text" name="telefono" id="telefono" placeholder="Ingrese el teléfono">
             
-            <label for="">Dirección:</label>
-            <input type="text" name="direccion" placeholder="Ingrese la dirección">
+            <label for="direccion">Direccion:</label>
+            <input type="text" name="direccion" id="direccion" placeholder="Ingrese la dirección">
             
-            <label for="">Edad:</label>
-            <input type="text" name="edad" placeholder="Ingrese la edad">
+            <label for="edad">Edad:</label>
+            <input type="text" name="edad" id="edad" placeholder="Ingrese la edad">
             
             <button type="submit">Agregar empleado</button>
-            <button type="button" id="guardarCambiosBtn" style="display: none;">Guardar cambios</button>
         </form>
         
-        <hr>
-        
-        <!-- Formulario para buscar empleados por nombre -->
         <form id="form-buscar">
-            <label for="">Buscar empleado por nombre:</label>
-            <input type="text" name="buscarNombre" placeholder="Ingrese el nombre del empleado">
+            <label for="buscarNombre">Buscar empleado por nombre:</label>
+            <input type="text" name="buscarNombre" id="buscarNombre" placeholder="Ingrese el nombre del empleado">
             <button type="submit">Buscar empleado</button>
         </form>
         
-        <!-- Contenedor para mostrar resultados de búsqueda -->
         <div id="resultados"></div>
         
-        <!-- Tabla para mostrar la lista de empleados -->
         <table id="empleados-table">
             <thead>
                 <tr>
@@ -129,8 +183,8 @@
                     <th>Contrato</th>
                     <th>Salario</th>
                     <th>Correo</th>
-                    <th>Teléfono</th>
-                    <th>Dirección</th>
+                    <th>Telefono</th>
+                    <th>Direccion</th>
                     <th>Edad</th>
                     <th>Acciones</th>
                 </tr>
@@ -140,57 +194,7 @@
     </div>
 
     <script type="module">
-        // Importar las funciones necesarias de los SDK que necesitas
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, query, where, deleteDoc, updateDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-        // Configuración de tu aplicación Firebase
-        const firebaseConfig = {
-            apiKey: "Tu API Key",
-            authDomain: "Tu Dominio.firebaseapp.com",
-            projectId: "Tu Proyecto ID",
-            storageBucket: "Tu Storage Bucket",
-            messagingSenderId: "Tu Messaging Sender ID",
-            appId: "Tu App ID"
-        };
-
-        // Inicializar Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        const empleadform = document.getElementById("form-emplead");
-        const buscarform = document.getElementById("form-buscar");
-        const resultados = document.getElementById("resultados");
-        const empleadosTableBody = document.querySelector("#empleados-table tbody");
-
-        // Función para renderizar empleados en la tabla
-        const renderEmpleados = (querySnapshot) => {
-            empleadosTableBody.innerHTML = '';
-            querySnapshot.forEach((doc) => {
-                const data = doc.data();
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td>${doc.id}</td>
-                    <td>${data.nombre}</td>
-                    <td>${data.apellido}</td>
-                    <td>${data.cargo}</td>
-                    <td>${data.departamento}</td>
-                    <td>${data.contrato}</td>
-                    <td>${data.salario}</td>
-                    <td>${data.correo}</td>
-                    <td>${data.telefono}</td>
-                    <td>${data.direccion}</td>
-                    <td>${data.edad}</td>
-                    <td>
-                        <button onclick="eliminarEmpleado('${doc.id}')">Eliminar</button>
-                        <button onclick="cargarEmpleado('${doc.id}')">Actualizar</button>
-                    </td>
-                `;
-                empleadosTableBody.appendChild(row);
-            });
-        };
-
-        // Obtener todos los empleados y renderizarlos en la tabla
-        const fetchEmpleados = async () => {
-            const
-            
+        // Tu script aquí
+    </script>
+</body>
+</html>
