@@ -43,8 +43,8 @@
             width: 250px;
         }
         form button {
-            margin-top: 10px;
             padding: 10px 20px;
+            margin-top: 10px;
         }
         table {
             margin-top: 20px;
@@ -102,10 +102,18 @@
             <input type="text" name="edad" placeholder="Ingrese la edad">
             
             <button type="submit">Guardar</button>
-            <button type="button" id="actualizar-btn" style="display: none;">Actualizar</button>
+            <button type="button" id="actualizarBtn" style="display: none;">Actualizar</button>
         </form>
         
         <hr>
+        
+        <form id="form-buscar">
+            <label for="">Buscar empleado por nombre:</label>
+            <input type="text" name="buscarNombre" placeholder="Ingrese el nombre del empleado">
+            <button type="submit">Buscar empleado</button>
+        </form>
+        
+        <div id="resultados"></div>
         
         <table id="empleados-table">
             <thead>
@@ -131,16 +139,16 @@
     <script type="module">
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, query, onSnapshot, doc, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, query, where, deleteDoc, updateDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
         // Your web app's Firebase configuration
         const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
+            apiKey: "AIzaSyDrAFNARDWnrUVGAUoUgYFqKUc0RtVyF7Q",
+            authDomain: "banco-f282f.firebaseapp.com",
+            projectId: "banco-f282f",
+            storageBucket: "banco-f282f.appspot.com",
+            messagingSenderId: "836425015918",
+            appId: "1:836425015918:web:0bc5e4dd186e09b768fc7f"
         };
 
         // Initialize Firebase
@@ -148,7 +156,8 @@
         const db = getFirestore(app);
 
         const empleadform = document.getElementById("form-emplead");
-        const actualizarBtn = document.getElementById("actualizar-btn");
+        const buscarform = document.getElementById("form-buscar");
+        const resultados = document.getElementById("resultados");
         const empleadosTableBody = document.querySelector("#empleados-table tbody");
 
         // Function to render employees in the table
@@ -179,16 +188,4 @@
         };
 
         // Fetch all employees and render them in the table
-        const fetchEmpleados = async () => {
-            const querySnapshot = await getDocs(collection(db, "empleados"));
-            renderEmpleados(querySnapshot);
-        };
-
-        fetchEmpleados();
-
-        empleadform.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            if (actualizarBtn.style.display === "none") {
-                await addDoc(collection(db, "empleados"), {
-                    nombre: empleadform.nombre.value,
-                    apellido: empleadform
+       
