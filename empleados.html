@@ -60,76 +60,135 @@
         <form id="form-emplead">
             <label for="">Nombre:</label>
             <input type="text" name="nombre" placeholder="Ingrese el nombre del empleado">
-
+            
             <label for="">Apellido:</label>
             <input type="text" name="apellido" placeholder="Ingrese el apellido del empleado">
-
+            
             <label for="">Cargo:</label>
             <input type="text" name="cargo" placeholder="Ingrese el cargo">
-
+            
             <label for="">Departamento:</label>
             <input type="text" name="departamento" placeholder="Ingrese el departamento">
-
+            
             <label for="">Contrato:</label>
             <input type="text" name="contrato" placeholder="Ingrese la fecha de contrato">
-
+            
             <label for="">Salario:</label>
             <input type="text" name="salario" placeholder="Ingrese el salario">
-
+            
             <label for="">Correo:</label>
             <input type="text" name="correo" placeholder="Ingrese el correo">
-
+            
             <label for="">Telefono:</label>
             <input type="text" name="telefono" placeholder="Ingrese el teléfono">
             
             <label for="">Direccion:</label>
             <input type="text" name="direccion" placeholder="Ingrese la dirección">
-
+            
             <label for="">Edad:</label>
             <input type="text" name="edad" placeholder="Ingrese la edad">
+            
             <button type="submit">Agregar empleado</button>
         </form>
+        
+        <hr>
+        
+        <form id="form-buscar">
+            <label for="">Buscar empleado por nombre:</label>
+            <input type="text" name="buscarNombre" placeholder="Ingrese el nombre del empleado">
+            <button type="submit">Buscar empleado</button>
+        </form>
+        
+        <div id="resultados"></div>
     </div>
 
     <script type="module">
-      // Import the functions you need from the SDKs you need
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";;
-      import {getFirestore,collection,addDoc,onSnapshot,deleteDoc,doc} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, query, where, deleteDoc, updateDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-      // TODO: Add SDKs for Firebase products that you want to use
-      // https://firebase.google.com/docs/web/setup#available-libraries
-    
-      // Your web app's Firebase configuration
-      const firebaseConfig = {
-        apiKey: "AIzaSyDrAFNARDWnrUVGAUoUgYFqKUc0RtVyF7Q",
-        authDomain: "banco-f282f.firebaseapp.com",
-        projectId: "banco-f282f",
-        storageBucket: "banco-f282f.appspot.com",
-        messagingSenderId: "836425015918",
-        appId: "1:836425015918:web:0bc5e4dd186e09b768fc7f"
-      };
-    
-      // Initialize Firebase
-      const app = initializeApp(firebaseConfig);
-      const db = getFirestore(app);
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDrAFNARDWnrUVGAUoUgYFqKUc0RtVyF7Q",
+            authDomain: "banco-f282f.firebaseapp.com",
+            projectId: "banco-f282f",
+            storageBucket: "banco-f282f.appspot.com",
+            messagingSenderId: "836425015918",
+            appId: "1:836425015918:web:0bc5e4dd186e09b768fc7f"
+        };
 
-      const empleadform = document.getElementById("form-emplead");
-      empleadform.addEventListener("submit",async(e)=>{
-        e.preventDefault();
-        await addDoc(collection(db, "empleados"), {
-          nombre: empleadform.nombre.value,
-          apellido: empleadform.apellido.value,
-          cargo: empleadform.cargo.value,
-          departamento: empleadform.departamento.value,
-          contrato: empleadform.contrato.value,
-          salario: empleadform.salario.value,
-          correo: empleadform.correo.value,
-          telefono: empleadform.telefono.value,
-          direccion: empleadform.direccion.value,
-          edad: empleadform.edad.value
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const empleadform = document.getElementById("form-emplead");
+        const buscarform = document.getElementById("form-buscar");
+        const resultados = document.getElementById("resultados");
+
+        empleadform.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            await addDoc(collection(db, "empleados"), {
+                nombre: empleadform.nombre.value,
+                apellido: empleadform.apellido.value,
+                cargo: empleadform.cargo.value,
+                departamento: empleadform.departamento.value,
+                contrato: empleadform.contrato.value,
+                salario: empleadform.salario.value,
+                correo: empleadform.correo.value,
+                telefono: empleadform.telefono.value,
+                direccion: empleadform.direccion.value,
+                edad: empleadform.edad.value
+            });
+            empleadform.reset();
         });
-        empleadform.reset();
-      });
+
+        buscarform.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const nombre = buscarform.buscarNombre.value;
+            const q = query(collection(db, "empleados"), where("nombre", "==", nombre));
+            const querySnapshot = await getDocs(q);
+            
+            resultados.innerHTML = '';
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const div = document.createElement("div");
+                div.innerHTML = `
+                    <p>ID: ${doc.id}</p>
+                    <p>Nombre: ${data.nombre}</p>
+                    <p>Apellido: ${data.apellido}</p>
+                    <p>Cargo: ${data.cargo}</p>
+                    <p>Departamento: ${data.departamento}</p>
+                    <p>Contrato: ${data.contrato}</p>
+                    <p>Salario: ${data.salario}</p>
+                    <p>Correo: ${data.correo}</p>
+                    <p>Telefono: ${data.telefono}</p>
+                    <p>Direccion: ${data.direccion}</p>
+                    <p>Edad: ${data.edad}</p>
+                    <button onclick="eliminarEmpleado('${doc.id}')">Eliminar</button>
+                    <button onclick="actualizarEmpleado('${doc.id}')">Actualizar</button>
+                `;
+                resultados.appendChild(div);
+            });
+        });
+
+        window.eliminarEmpleado = async (id) => {
+            await deleteDoc(doc(db, "empleados", id));
+            alert("Empleado eliminado");
+            document.getElementById("resultados").innerHTML = '';
+        };
+
+        window.actualizarEmpleado = async (id) => {
+            const nuevoNombre = prompt("Ingrese el nuevo nombre:");
+            const nuevoApellido = prompt("Ingrese el nuevo apellido:");
+            if (nuevoNombre && nuevoApellido) {
+                await updateDoc(doc(db, "empleados", id), {
+                    nombre: nuevoNombre,
+                    apellido: nuevoApellido
+                });
+                alert("Empleado actualizado");
+                document.getElementById("resultados").innerHTML = '';
+            }
+        };
     </script>
 </body>
 </html>
