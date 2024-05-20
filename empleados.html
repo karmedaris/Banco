@@ -320,8 +320,8 @@
 
         empleadform.addEventListener("submit", async (e) => {
             e.preventDefault();
-            const id = empleadform.dataset.id;
-            if (id) {
+            const nombre = empleadform.dataset.nombre;
+            if (nombre) {
                 await updateDoc(doc(db, "empleados", nombre), {
                     nombre: empleadform.nombre.value,
                     apellido: empleadform.apellido.value,
@@ -349,13 +349,13 @@
                     direccion: empleadform.direccion.value,
                     edad: empleadform.edad.value
                 });
-                alert("Empleado agregado");
+                alert("Confirmar");
             }
             empleadform.reset();
             fetchEmpleados();
         });
 
-        // Listen for real-time updates
+        
         onSnapshot(collection(db, "empleados"), (snapshot) => {
             renderEmpleados(snapshot);
         });
