@@ -209,7 +209,7 @@
             appId: "1:836425015918:web:0bc5e4dd186e09b768fc7f"
         };
 
-        // Initialize Firebase
+        // Inicializacion de Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
@@ -218,7 +218,7 @@
         const resultados = document.getElementById("resultados");
         const empleadosTableBody = document.querySelector("#empleados-table tbody");
 
-        // Function to render employees in the table
+        // Cargar datos en la tabla
         const renderEmpleados = (querySnapshot) => {
             empleadosTableBody.innerHTML = '';
             querySnapshot.forEach((doc) => {
@@ -322,7 +322,7 @@
             e.preventDefault();
             const id = empleadform.dataset.id;
             if (id) {
-                await updateDoc(doc(db, "empleados", id), {
+                await updateDoc(doc(db, "empleados", nombre), {
                     nombre: empleadform.nombre.value,
                     apellido: empleadform.apellido.value,
                     cargo: empleadform.cargo.value,
@@ -335,7 +335,7 @@
                     edad: empleadform.edad.value
                 });
                 alert("Empleado actualizado");
-                empleadform.removeAttribute("data-id");
+                empleadform.removeAttribute("data-nombre");
             } else {
                 await addDoc(collection(db, "empleados"), {
                     nombre: empleadform.nombre.value,
