@@ -243,7 +243,7 @@
             });
         };
     
-        // Fetch all employees and render them in the table
+        // Buscar todos los empleados y representelos en la tabla.
         const fetchEmpleados = async () => {
             const querySnapshot = await getDocs(collection(db, "empleados"));
             renderEmpleados(querySnapshot);
@@ -337,7 +337,7 @@
             empleadform.dataset.id = id;
         };
     
-        // Listen for real-time updates
+        // actualizaciones en tiempo real
         onSnapshot(collection(db, "empleados"), (snapshot) => {
             renderEmpleados(snapshot);
         });
